@@ -10,9 +10,15 @@ set("harbor.bind_addr", "0.0.0.0")
 silence = blank()
 
 tunes = playlist("/home/liquidsoap/mp3/tunes",mode="randomize", reload_mode="watch")
+tom_recordings =playlist("/home/liquidsoap/mp3/tom",mode="randomize", reload_mode="watch")
 jingles = playlist("/home/liquidsoap/mp3/jingles")
 
 computa_selecta = rotate(weights=[1,3], [jingles, tunes])
+
+scheduled_source = switch([
+  ({ (7w) and 22h00-24h00 }, tom_recordings),
+  ({ true }, computa_selecta)
+])
 
 live = input.harbor(
   "live",
@@ -31,7 +37,7 @@ live=map_metadata(append_title,live)
 
 source_chain = fallback(
   track_sensitive=false,
-  [live, computa_selecta, silence]
+  [live, scheduled_source, silence]
 )
 
 # dump live_dj recordings to a file
