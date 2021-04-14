@@ -9,9 +9,9 @@ set("harbor.bind_addr", "0.0.0.0")
 
 silence = blank()
 
-tunes = playlist("/home/liquidsoap/mp3/tunes",mode="randomize", reload_mode="watch")
-tom_recordings =playlist("/home/liquidsoap/mp3/tom",mode="randomize", reload_mode="watch")
-jingles = playlist("/home/liquidsoap/mp3/jingles")
+tunes = playlist("#{basedir}/audio/tunes",mode="randomize", reload_mode="watch")
+tom_recordings =playlist("#{basedir}/audio/tom",mode="randomize", reload_mode="watch")
+jingles = playlist("#{basedir}/audio/jingles")
 
 computa_selecta = rotate(weights=[1,3], [jingles, tunes])
 
@@ -42,7 +42,7 @@ source_chain = fallback(
 
 # dump live_dj recordings to a file
 timestamp = '%H-%M--%d-%m-%Y'
-output.file(%mp3(bitrate=320, id3v2=true), reopen_on_metadata=false, "/home/liquidsoap/mp3/rec/OMYLiveRecordedOn#{timestamp}.mp3", live, fallible=true)
+output.file(%mp3(bitrate=320, id3v2=true), reopen_on_metadata=false, "#{basedir}/audio/rec/OMYLiveRecordedOn#{timestamp}.mp3", live, fallible=true)
 
 radio = source_chain
 
