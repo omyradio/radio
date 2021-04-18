@@ -65,7 +65,18 @@ output.icecast(
   port=8000,
   user="source",
   password=icecast_pwd,
-  mount="stream-vorbis",
-  name="Omyradio vorbis stream",
+  mount="stream-vorbis-128",
+  name="Omyradio vorbis stream 128kbps",
+  radio
+)
+
+output.icecast(
+  %vorbis.cbr(samplerate=44100, channels=2, bitrate=320),
+  host="localhost",
+  port=8000,
+  user="source",
+  password=icecast_pwd,
+  mount="stream-vorbis-320",
+  name="Omyradio vorbis stream 320kbps",
   radio
 )
