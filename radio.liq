@@ -36,7 +36,7 @@ livelag = input.harbor(
   buffer=8.
 )
 
-live = fallback([live,livelag])
+live = fallback([strip_blank(max_blank=4.2,mksafe(live)),strip_blank(max_blank=4.2,mksafe(livelag))])
 
 # append LIVE-ON-AIR to title if we are live
 def append_title(m)=
