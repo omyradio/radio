@@ -41,8 +41,15 @@ source_chain = fallback(
 )
 
 # dump live_dj recordings to a file
-timestamp = '%H-%M--%d-%m-%Y'
-output.file(%mp3(bitrate=320, id3v2=true), reopen_on_metadata=false, "#{basedir}/audio/rec/OMYLiveRecordedOn#{timestamp}.mp3", live, fallible=true)
+timestamp = '%d-%m-%Y_%Hh%Mm'
+title='$(if $(title),"$(title)","Unknown archive")'
+output.file(
+  %mp3(bitrate=320, id3v2=true),
+  reopen_on_metadata=true,
+  '#{basedir}/audio/rec/OMYLiveRecordedOn#{timestamp}_#{title}.mp3',
+  live,
+  fallible=true
+)
 
 radio = source_chain
 
