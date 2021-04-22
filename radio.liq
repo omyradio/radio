@@ -22,7 +22,7 @@ scheduled_source = switch([
   ({ true }, computa_selecta)
 ])
 
-live = input.harbor(
+livenormal = input.harbor(
   "live",
   port=8001,
   password=stream_pwd,
@@ -38,15 +38,16 @@ livelag = input.harbor(
   buffer=8.
 )
 
-live = fallback([strip_blank(max_blank=24.0,mksafe(live)),strip_blank(max_blank=24.0,mksafe(livelag))])
-
 # append LIVE-ON-AIR to title if we are live
 def append_title(m)=
   title=m["title"]
   [("title","#{title} - LIVE-ON-AIR")]
 end
 
-live=map_metadata(append_title,live)
+livenormal=map_metadata(append_title,livenormal)
+livelag=map_metadata(append_title,livelag)
+
+live = fallback([strip_blank(max_blank=24.0,mksafe(livenormal)),strip_blank(max_blank=24.0,mksafe(livelag))])
 
 source_chain = fallback(
   track_sensitive=false,
