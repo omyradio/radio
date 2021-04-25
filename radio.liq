@@ -22,21 +22,21 @@ scheduled_source = switch([
   ({ true }, computa_selecta)
 ])
 
-livenormal = input.harbor(
+livenormal = audio_to_stereo(input.harbor(
   "live",
   port=8001,
   password=stream_pwd,
   user="source"
-)
+))
 
 # input with inreased buffer (4x) for DJs with bad connection
-livelag = input.harbor(
+livelag = audio_to_stereo(input.harbor(
   "livelag",
   port=8001,
   password=stream_pwd,
   user="source",
   buffer=8.
-)
+))
 
 # append LIVE-ON-AIR to title if we are live
 def append_title(m)=
