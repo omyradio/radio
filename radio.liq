@@ -17,7 +17,7 @@ jingles = playlist("#{basedir}/audio/jingles")
 computa_selecta = rotate(weights=[1,3], [jingles, tunes])
 
 scheduled_source = switch([
-  ({ (7w) and 22h00-24h00 }, tom_recordings),
+  ({ (7w) and 21h00-24h00 }, tom_recordings),
   ({ (5w) and 16h20-18h00 }, lifeindub),
   ({ true }, computa_selecta)
 ])
