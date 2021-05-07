@@ -26,7 +26,8 @@ livenormal = audio_to_stereo(input.harbor(
   "live",
   port=8001,
   password=stream_pwd,
-  user="source"
+  user="source",
+  max=20.
 ))
 
 # input with inreased buffer (4x) for DJs with bad connection
@@ -35,7 +36,8 @@ livelag = audio_to_stereo(input.harbor(
   port=8001,
   password=stream_pwd,
   user="source",
-  buffer=8.
+  buffer=8.,
+  max=20.
 ))
 
 # append LIVE-ON-AIR to title if we are live
