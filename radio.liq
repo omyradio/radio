@@ -69,6 +69,10 @@ output.file(
 
 radio = source_chain
 
+# trying to work around a buffer problem
+# https://github.com/savonet/liquidsoap/issues/545#issuecomment-590909228
+output.dummy(id="DUMMY_STREAM_OUTPUT", fallible=true, radio)
+
 output.icecast(
   %mp3(
     bitrate=128
